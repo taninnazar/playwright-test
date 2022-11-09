@@ -1,20 +1,16 @@
 import { test, expect } from '@playwright/test';
 
 test('homepage has title and links to intro page', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  await page.goto('https://qa.awarasleep.com/');
+  await expect(page).toHaveTitle('Awara');
+  await expect(page.url()).toContain('qa.awarasleep.com');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+  await page.getByTestId('hero_shop_mattress').click();
+  await expect(page.url()).toContain('qa.awarasleep.com/mattress');
 
-  // create a locator
-  const getStarted = page.getByRole('link', { name: 'Get started' });
-
-  // Expect an attribute "to be strictly equal" to the value.
-  await expect(getStarted).toHaveAttribute('href', '/docs/intro');
-
-  // Click the get started link.
-  await getStarted.click();
-
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*intro/);
+  await page.getByTestId('addtocart_btn').click();
+  await expect(page).toHaveTitle('Awara - Express Checkout');
+  await expect(page.url()).toContain('qa.awarasleep.com/checkout/shipping');
+  const addedToCartItem = await page.getByTestId('cart_items_area').getByTestId('awara-latex-hybrid-mattress');
+  await expect(addedToCartItem).toBeVisible();
 });
