@@ -28,3 +28,7 @@ To open generated html report use:
 ```
 npm run open-allure-report
 ```
+
+## CI build
+[![CircleCI](https://circleci.com/gh/taninnazar/playwright-test/tree/main.svg?style=shield)](https://circleci.com/gh/taninnazar/playwright-test/tree/main) - `main` branch
+ 
